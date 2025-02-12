@@ -49,12 +49,9 @@ class Eyelinker:
 
 
 def get_trigger(frame, positions, target_item):
-    condition_marker = {1: 1, 2: 2}[target_item]
+    condition_marker = int(target_item)
 
     if positions[0] == "right":
-        condition_marker += 4
-
-    if positions[1] == "right":
         condition_marker += 2
 
     return {
