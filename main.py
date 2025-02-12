@@ -75,7 +75,7 @@ def main():
         eyelinker.start()
 
     # Practice until participant wants to stop
-    practice(settings)
+    practice(None if testing else eyelinker, settings)
 
     # Initialise some stuff
     start_of_experiment = time()
