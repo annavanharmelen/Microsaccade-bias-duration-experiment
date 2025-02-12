@@ -111,7 +111,9 @@ def single_trial(
 
     # Show performance (and feedback on premature key usage if necessary)
     draw_fixation_dot(settings)
-    show_text(f"{response['performance']}", settings["window"], (0, settings["deg2pix"](0.3)))
+    show_text(
+        f"{response['performance']}", settings["window"], (0, settings["deg2pix"](0.3))
+    )
 
     if response["premature_pressed"] == True:
         show_text("!", settings["window"], (0, -settings["deg2pix"](0.3)))

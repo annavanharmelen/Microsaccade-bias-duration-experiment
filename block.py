@@ -16,7 +16,7 @@ def create_trial_list(n_trials):
         raise Exception(
             "Expected number of trials to be divisible by 4, otherwise perfect factorial combinations are not possible."
         )
-    
+
     # Generate equal distribution of target items
     target_item = n_trials // 2 * [1, 2]
 

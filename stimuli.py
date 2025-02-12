@@ -41,7 +41,7 @@ def draw_one_stimulus(position, settings):
     elif position == "right":
         pos = (settings["deg2pix"](ECCENTRICITY), 0)
     elif position == "middle":
-        pos = (0,0)
+        pos = (0, 0)
     else:
         raise Exception(f"Expected 'left' or 'right', but received {position!r}.")
 

@@ -53,7 +53,7 @@ def get_trigger(frame, positions, target_item):
 
     if positions[0] == "right":
         condition_marker += 4
-        
+
     if positions[1] == "right":
         condition_marker += 2
 
