@@ -7,8 +7,6 @@ made by Anna van Harmelen, 2025
 """
 
 from psychopy import visual
-from numpy import zeros
-from math import sqrt
 
 DOT_SIZE = 0.1  # diameter of circle
 ECCENTRICITY = 5
