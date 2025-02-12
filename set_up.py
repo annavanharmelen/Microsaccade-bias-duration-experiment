@@ -34,7 +34,7 @@ def get_monitor_and_dir(testing: bool):
             "distance": 70,  # in cm
         }
 
-        directory = r"C:\Users\Anna_vidi\Desktop\microsaccade_data"
+        directory = r"C:\Users\m_bias_duration\Desktop\Duration data"
 
     return monitor, directory
 
