@@ -78,7 +78,7 @@ def get_response(
     return {
         "idle_reaction_time_in_ms": round(idle_reaction_time * 1000, 2),
         "response_time_in_ms": round(response_time * 1000, 2),
-        "key_pressed": key,
+        "key_pressed": key[0].name,
         "premature_pressed": True if prematurely_pressed else False,
         "premature_key": prematurely_pressed[0][0] if prematurely_pressed else None,
         "premature_timing": (
