@@ -26,6 +26,26 @@ def practice(eyetracker, settings):
 def practice_response(eyetracker, settings):
     # Practice response until participant chooses to stop
     try:
+        # Show first screen
+        show_text(
+            "Welcome! "
+            "Press SPACE to start practicing how to reproduce durations."
+            "\n\nRemember to press Q to stop practising.",
+            settings["window"],
+        )
+        settings["window"].flip()
+        if eyetracker:
+            keys = wait_for_key(["space", "c"], settings["keyboard"])
+            if "c" in keys:
+                eyetracker.calibrate()
+                eyetracker.start()
+                return True
+        else:
+            wait_for_key(["space"], settings["keyboard"])
+
+        # Make sure the keystroke from starting the experiment isn't saved
+        settings["keyboard"].clearEvents()
+        
         while True:
             # Show fixation dot in preparation
             draw_fixation_dot(settings)
@@ -87,6 +107,7 @@ def practice_response(eyetracker, settings):
 
         # Make sure the keystroke from starting the experiment isn't saved
         settings["keyboard"].clearEvents()
+
 
 
 def practice_trials(eyetracker, settings):
