@@ -9,8 +9,8 @@ made by Anna van Harmelen, 2025
 from psychopy import visual
 
 DOT_SIZE = 0.1  # diameter of circle
-ECCENTRICITY = 5
-ITEM_SIZE = 2
+ECCENTRICITY = 6
+ITEM_SIZE = 1
 
 
 def show_text(input, window, pos=(0, 0), colour="#ffffff"):
