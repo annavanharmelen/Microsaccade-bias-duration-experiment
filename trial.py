@@ -26,7 +26,7 @@ def generate_trial_characteristics(conditions):
     target_item, *positions = conditions
 
     # Decide on random durations of stimuli
-    durations = [random.randint(1000, 2000), random.randint(1000, 2000)]
+    durations = [random.randint(500, 1500), random.randint(500, 1500)]
 
     return {
         "ITI": random.randint(500, 800),
@@ -71,15 +71,15 @@ def single_trial(
             lambda: create_stimulus_frame(positions[0], settings),
             "stimulus_onset_1",
         ),
-        (1.25, lambda: draw_fixation_dot(settings), None),
+        (0.75, lambda: draw_fixation_dot(settings), None),
         (
             durations[1] / 1000,
             lambda: create_stimulus_frame(positions[1], settings),
             "stimulus_onset_2",
         ),
-        (1.25, lambda: draw_fixation_dot(settings), None),
-        (0.25, lambda: create_cue_frame(target_item, settings), "cue_onset"),
         (0.75, lambda: draw_fixation_dot(settings), None),
+        (0.25, lambda: create_cue_frame(target_item, settings), "cue_onset"),
+        (1.00, lambda: draw_fixation_dot(settings), None),
     ]
 
     # !!! The timing you pass to do_while_showing is the timing for the previously drawn screen. !!!
