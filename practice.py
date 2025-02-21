@@ -13,6 +13,7 @@ from psychopy.core import wait
 from response import get_response, check_quit, wait_for_key
 from time import sleep
 from trial import single_trial
+from numpy import mean
 
 
 def practice(eyetracker, settings):
@@ -26,6 +27,8 @@ def practice(eyetracker, settings):
 def practice_response(eyetracker, settings):
     # Practice response until participant chooses to stop
     try:
+        performance = []
+
         # Show first screen
         show_text(
             "Welcome! "
@@ -64,17 +67,17 @@ def practice_response(eyetracker, settings):
             wait(1.5)
 
             # Allow response
-            response = get_response(
+            report = get_response(
                 stimulus["target_duration"], None, None, settings, True, None
             )
             draw_fixation_dot(settings)
             show_text(
-                f"{response['performance']}",
+                f"{report['performance']}",
                 settings["window"],
                 (0, settings["deg2pix"](0.3)),
             )
 
-            if response["premature_pressed"] == True:
+            if report["premature_pressed"] == True:
                 show_text("!", settings["window"], (0, -settings["deg2pix"](0.3)))
 
             settings["window"].flip()
@@ -88,8 +91,14 @@ def practice_response(eyetracker, settings):
             # Check for pressed 'q'
             check_quit(settings["keyboard"])
 
+            # Save for feedback
+            performance.append(int(report["performance"]))
+
     except KeyboardInterrupt:
+        avg_score = round(mean(performance))
+
         show_text(
+            f"On average you reported {avg_score} {'too short' if avg_score < 0 else 'too long'}. "
             "You decided to stop practising the basic response. "
             "Press SPACE to start practicing full trials."
             "\n\nRemember to press Q to stop practising these trials and move on to the final practice part.",
@@ -113,6 +122,11 @@ def practice_response(eyetracker, settings):
 def practice_trials(eyetracker, settings):
     # Practice full trials until participant chooses to stop
     try:
+        performance = []
+        
+        # Make sure the keystroke from starting the experiment isn't saved
+        settings["keyboard"].clearEvents()
+
         while True:
             target_item = random.choice([1, 2])
             loc_1 = random.choice(["left", "right"])
@@ -123,16 +137,22 @@ def practice_trials(eyetracker, settings):
             )
 
             # Generate trial
-            single_trial(
+            report = single_trial(
                 **trial_characteristics,
                 settings=settings,
                 testing=True,
                 eyetracker=None,
             )
 
+            # Save for feedback
+            performance.append(int(report["performance"]))
+
     except KeyboardInterrupt:
+        avg_score = round(mean(performance))
+
         settings["window"].flip()
         show_text(
+            f"On average you reported {avg_score} {'too short' if avg_score < 0 else 'too long'}. "
             "You decided to stop practicing the trials."
             f"\n\nPress SPACE to start the experiment.",
             settings["window"],
