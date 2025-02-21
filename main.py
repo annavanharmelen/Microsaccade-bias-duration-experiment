@@ -27,7 +27,6 @@ import traceback
 
 N_BLOCKS = 20
 TRIALS_PER_BLOCK = 40
-PREDICTABILITY = 80
 
 
 def main():
