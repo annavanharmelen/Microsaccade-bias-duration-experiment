@@ -152,6 +152,9 @@ def main():
                         eyetracker=None if testing else eyelinker,
                     )
 
+            # Make sure the keystroke from continueing to the next block isn't saved
+            settings["keyboard"].clearEvents()
+
         finished_early = False
 
     except Exception as e:

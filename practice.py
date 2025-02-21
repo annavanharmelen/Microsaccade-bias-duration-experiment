@@ -116,7 +116,7 @@ def practice_response(eyetracker, settings):
         else:
             wait_for_key(["space"], settings["keyboard"])
 
-        # Make sure the keystroke from starting the experiment isn't saved
+        # Make sure the keystroke from moving to the next part isn't saved
         settings["keyboard"].clearEvents()
 
 
@@ -124,9 +124,6 @@ def practice_trials(eyetracker, settings):
     # Practice full trials until participant chooses to stop
     try:
         performance = []
-
-        # Make sure the keystroke from starting the experiment isn't saved
-        settings["keyboard"].clearEvents()
 
         while True:
             target_item = random.choice([1, 2])
