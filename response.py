@@ -91,7 +91,7 @@ def get_response(
 def wait_for_key(key_list, keyboard):
     keyboard: Keyboard = keyboard
     keyboard.clearEvents()
-    keys = event.waitKeys(keyList=key_list)
+    keys = keyboard.waitKeys(keyList=key_list)
 
     return keys
 

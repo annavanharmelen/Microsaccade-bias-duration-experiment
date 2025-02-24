@@ -27,7 +27,6 @@ import traceback
 
 N_BLOCKS = 20
 TRIALS_PER_BLOCK = 40
-PREDICTABILITY = 80
 
 
 def main():
@@ -151,6 +150,9 @@ def main():
                         settings,
                         eyetracker=None if testing else eyelinker,
                     )
+
+            # Make sure the keystroke from continueing to the next block isn't saved
+            settings["keyboard"].clearEvents()
 
         finished_early = False
 

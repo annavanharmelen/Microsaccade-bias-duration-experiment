@@ -17,7 +17,7 @@ from numpy import mean
 
 
 def practice(eyetracker, settings):
-    # Practice response wheel
+    # Practice response itself
     practice_response(eyetracker, settings)
 
     # Practice full trials
@@ -48,7 +48,7 @@ def practice_response(eyetracker, settings):
 
         # Make sure the keystroke from starting the experiment isn't saved
         settings["keyboard"].clearEvents()
-        
+
         while True:
             # Show fixation dot in preparation
             draw_fixation_dot(settings)
@@ -70,6 +70,11 @@ def practice_response(eyetracker, settings):
             report = get_response(
                 stimulus["target_duration"], None, None, settings, True, None
             )
+
+            # Save for post-hoc feedback
+            performance.append(int(report["performance"]))
+
+            # Show feedback
             draw_fixation_dot(settings)
             show_text(
                 f"{report['performance']}",
@@ -91,9 +96,6 @@ def practice_response(eyetracker, settings):
             # Check for pressed 'q'
             check_quit(settings["keyboard"])
 
-            # Save for feedback
-            performance.append(int(report["performance"]))
-
     except KeyboardInterrupt:
         avg_score = round(mean(performance))
 
@@ -114,18 +116,14 @@ def practice_response(eyetracker, settings):
         else:
             wait_for_key(["space"], settings["keyboard"])
 
-        # Make sure the keystroke from starting the experiment isn't saved
+        # Make sure the keystroke from moving to the next part isn't saved
         settings["keyboard"].clearEvents()
-
 
 
 def practice_trials(eyetracker, settings):
     # Practice full trials until participant chooses to stop
     try:
         performance = []
-        
-        # Make sure the keystroke from starting the experiment isn't saved
-        settings["keyboard"].clearEvents()
 
         while True:
             target_item = random.choice([1, 2])
