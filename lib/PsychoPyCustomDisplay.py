@@ -65,15 +65,6 @@ class PsychoPyCustomDisplay(pylink.EyeLinkCustomDisplay):
         else:
             self.text_color = (1, 1, 1)
 
-        self.beeps = {
-            pylink.CAL_TARG_BEEP: psychopy.sound.Sound(value='C', secs=0.2, octave=5),
-            pylink.DC_TARG_BEEP: psychopy.sound.Sound(value='C', secs=0.2, octave=5),
-            pylink.CAL_GOOD_BEEP: psychopy.sound.Sound(value='A', secs=0.2, octave=6),
-            pylink.DC_GOOD_BEEP: psychopy.sound.Sound(value='A', secs=0.2, octave=6),
-            pylink.CAL_ERR_BEEP: psychopy.sound.Sound(value='E', secs=0.5, octave=4),
-            pylink.DC_ERR_BEEP: psychopy.sound.Sound(value='E', secs=0.5, octave=4)
-        }
-
         self.colors = {
             pylink.CR_HAIR_COLOR: (1, 1, 1),
             pylink.PUPIL_HAIR_COLOR: (1, 1, 1),
