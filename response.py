@@ -47,7 +47,7 @@ def get_response(
     keyboard.clock.reset()
 
     # Check if _any_ keys were prematurely pressed
-    prematurely_pressed = [(p.name, p.rt) for p in keyboard.getKeys()]
+    prematurely_pressed = [(p.name, p.rt) for p in keyboard.getKeys(waitRelease=False)]
     keyboard.clearEvents()
 
     # Wait for space key press
