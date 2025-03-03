@@ -123,7 +123,7 @@ def main():
                     }
                 )
 
-                block_performance.append(int(report["performance"]))
+                block_performance.append(int(report["duration_diff_abs"]))
 
             # Calculate average performance score for most recent block
             avg_score = round(mean(block_performance))
