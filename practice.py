@@ -72,7 +72,7 @@ def practice_response(eyetracker, settings):
             )
 
             # Save for post-hoc feedback
-            performance.append(int(report["performance"]))
+            performance.append(int(report["duration_diff_abs"]))
 
             # Show feedback
             draw_fixation_dot(settings)
@@ -100,7 +100,7 @@ def practice_response(eyetracker, settings):
         avg_score = round(mean(performance))
 
         show_text(
-            f"On average you reported {avg_score} {'too short' if avg_score < 0 else 'too long'}. "
+            f"During this practice, your reports were on average off by {avg_score}. "
             "You decided to stop practising the basic response. "
             "Press SPACE to start practicing full trials."
             "\n\nRemember to press Q to stop practising these trials and move on to the final practice part.",
@@ -143,14 +143,14 @@ def practice_trials(eyetracker, settings):
             )
 
             # Save for feedback
-            performance.append(int(report["performance"]))
+            performance.append(int(report["duration_diff_abs"]))
 
     except KeyboardInterrupt:
         avg_score = round(mean(performance))
 
         settings["window"].flip()
         show_text(
-            f"On average you reported {avg_score} {'too short' if avg_score < 0 else 'too long'}. "
+            f"During this practice, your reports were on average off by {avg_score}. "
             "You decided to stop practicing the trials."
             f"\n\nPress SPACE to start the experiment.",
             settings["window"],
