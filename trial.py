@@ -16,6 +16,7 @@ from stimuli import (
     draw_fixation_dot,
     create_stimulus_frame,
     create_cue_frame,
+    create_feedback_frame,
 )
 from eyetracker import get_trigger
 import random
@@ -110,10 +111,7 @@ def single_trial(
     )
 
     # Show performance (and feedback on premature key usage if necessary)
-    draw_fixation_dot(settings)
-    show_text(
-        f"{response['performance']}", settings["window"], (0, settings["deg2pix"](0.3))
-    )
+    create_feedback_frame(target_duration, response["response_time_in_ms"], response["performance"], settings)
 
     if response["premature_pressed"] == True:
         show_text("!", settings["window"], (0, -settings["deg2pix"](0.3)))
@@ -123,7 +121,7 @@ def single_trial(
         eyetracker.tracker.send_message(f"trig{trigger}")
 
     settings["window"].flip()
-    sleep(0.25)
+    sleep(0.35)
 
     return {
         "condition_code": get_trigger("stimulus_onset_1", positions, target_item),
