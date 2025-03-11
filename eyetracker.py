@@ -48,11 +48,14 @@ class Eyelinker:
         self.tracker.close_edf()
 
 
-def get_trigger(frame, positions, target_item):
+def get_trigger(frame, positions, durations, target_item):
     condition_marker = int(target_item)
 
     if positions[0] == "right":
         condition_marker += 2
+
+    if durations[0] == "long":
+        condition_marker += 4
 
     return {
         "stimulus_onset_1": "1",
