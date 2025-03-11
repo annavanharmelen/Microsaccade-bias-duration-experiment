@@ -69,13 +69,13 @@ def single_trial(
         (ITI / 1000, lambda: draw_fixation_dot(settings), None),
         (
             durations[0] / 1000,
-            lambda: create_stimulus_frame(positions[0], settings),
+            lambda: create_stimulus_frame(positions[0], 1, settings),
             "stimulus_onset_1",
         ),
         (0.75, lambda: draw_fixation_dot(settings), None),
         (
             durations[1] / 1000,
-            lambda: create_stimulus_frame(positions[1], settings),
+            lambda: create_stimulus_frame(positions[1], 2, settings),
             "stimulus_onset_2",
         ),
         (0.75, lambda: draw_fixation_dot(settings), None),
