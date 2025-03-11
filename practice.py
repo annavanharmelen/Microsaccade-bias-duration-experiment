@@ -56,8 +56,8 @@ def practice_response(eyetracker, settings):
             sleep(0.5)
 
             # Show central square with certain duration
-            stimulus = generate_trial_characteristics([1, "left", "right"])
-            create_stimulus_frame("middle", settings)
+            stimulus = generate_trial_characteristics([1, ("left", "right"), ("short", "long")])
+            create_stimulus_frame("middle", 0, settings)
             settings["window"].flip()
             wait(stimulus["target_duration"] / 1000)
 
@@ -68,7 +68,7 @@ def practice_response(eyetracker, settings):
 
             # Allow response
             report = get_response(
-                stimulus["target_duration"], None, None, settings, True, None
+                stimulus["target_duration"], None, None, None, settings, True, None
             )
 
             # Save for post-hoc feedback
@@ -101,9 +101,8 @@ def practice_response(eyetracker, settings):
 
         show_text(
             f"During this practice, your reports were on average off by {avg_score}. "
-            "You decided to stop practising the basic response. "
-            "Press SPACE to start practicing full trials."
-            "\n\nRemember to press Q to stop practising these trials and move on to the final practice part.",
+            "\nPress SPACE to start practicing full trials."
+            "\n\nRemember to press Q to stop practising these trials.",
             settings["window"],
         )
         settings["window"].flip()
@@ -129,10 +128,10 @@ def practice_trials(eyetracker, settings):
             target_item = random.choice([1, 2])
             loc_1 = random.choice(["left", "right"])
             loc_2 = "right" if loc_1 == "left" else "left"
+            dur_1 = random.choice(["short", "long"])
+            dur_2 = "short" if dur_1 == "long" else "long" 
 
-            trial_characteristics = generate_trial_characteristics(
-                (target_item, loc_1, loc_2)
-            )
+            trial_characteristics = generate_trial_characteristics((target_item, (loc_1, loc_2), (dur_1, dur_2)))
 
             # Generate trial
             report = single_trial(
@@ -151,7 +150,7 @@ def practice_trials(eyetracker, settings):
         settings["window"].flip()
         show_text(
             f"During this practice, your reports were on average off by {avg_score}. "
-            "You decided to stop practicing the trials."
+            "\nYou decided to stop practicing the trials."
             f"\n\nPress SPACE to start the experiment.",
             settings["window"],
         )
