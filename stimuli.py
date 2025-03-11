@@ -80,7 +80,7 @@ def create_cue_frame(target_item, settings):
 def create_feedback_frame(target_duration, response_duration, main_feedback, settings):
     draw_fixation_dot(settings)
     show_text(
-        f"Actual: {target_duration}\nReport: {response_duration}\n\n{main_feedback}",
+        f"{main_feedback}",
         settings["window"],
-        (0, settings["deg2pix"](0.65)),
+        (0, settings["deg2pix"](0.3)),
     )
