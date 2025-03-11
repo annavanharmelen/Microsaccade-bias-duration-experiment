@@ -28,6 +28,7 @@ def evaluate_response(target_duration, response_duration):
 def get_response(
     target_duration,
     positions,
+    durations,
     target_item,
     settings,
     testing,
@@ -56,7 +57,7 @@ def get_response(
     response_started = time()
 
     if not testing and eyetracker:
-        trigger = get_trigger("response_onset", positions, target_item)
+        trigger = get_trigger("response_onset", positions, durations, target_item)
         eyetracker.tracker.send_message(f"trig{trigger}")
 
     # Show target item while space is held
@@ -69,7 +70,7 @@ def get_response(
     idle_reaction_time = response_started - idle_reaction_time_start
 
     if not testing and eyetracker:
-        trigger = get_trigger("response_offset", positions, target_item)
+        trigger = get_trigger("response_offset", positions, durations, target_item)
         eyetracker.tracker.send_message(f"trig{trigger}")
 
     # Make sure keystrokes made during this trial don't influence the next
