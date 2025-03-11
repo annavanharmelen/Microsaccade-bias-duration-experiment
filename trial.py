@@ -24,16 +24,18 @@ import random
 
 def generate_trial_characteristics(conditions):
     # Extract condition information
-    target_item, *positions = conditions
+    target_item, positions, duration_order = conditions
 
     # Decide on random durations of stimuli
-    durations = [random.randint(500, 1500), random.randint(500, 1500)]
+    duration_dict = {"short": random.randint(200, 800), "long": random.randint(1200, 1800)}
+    durations = (duration_dict[duration_order[0]], duration_dict[duration_order[1]])
 
     return {
         "ITI": random.randint(500, 800),
         "target_item": target_item,
         "target_position": positions[0] if target_item == 1 else positions[1],
         "target_duration": durations[0] if target_item == 1 else durations[1],
+        "target_duration_cat": duration_order[0] if target_item == 1 else duration_order[1],
         "positions": positions,
         "durations": durations,
     }
@@ -55,6 +57,7 @@ def single_trial(
     target_item,
     target_position,
     target_duration,
+    target_duration_cat,
     positions,
     durations,
     settings,
