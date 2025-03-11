@@ -27,7 +27,7 @@ def generate_trial_characteristics(conditions):
     target_item, positions, duration_order = conditions
 
     # Decide on random durations of stimuli
-    duration_dict = {"short": random.randint(200, 800), "long": random.randint(1200, 1800)}
+    duration_dict = {"short": random.randint(200, 800), "long": random.randint(1000, 1600)}
     durations = (duration_dict[duration_order[0]], duration_dict[duration_order[1]])
 
     return {
@@ -38,6 +38,7 @@ def generate_trial_characteristics(conditions):
         "target_duration_cat": duration_order[0] if target_item == 1 else duration_order[1],
         "positions": positions,
         "durations": durations,
+        "duration_cats": duration_order,
     }
 
 
@@ -60,6 +61,7 @@ def single_trial(
     target_duration_cat,
     positions,
     durations,
+    duration_cats,
     settings,
     testing,
     eyetracker=None,
@@ -90,7 +92,7 @@ def single_trial(
     for index, (duration, _, frame) in enumerate(screens[:-1]):
         # Send trigger if not testing
         if not testing and frame:
-            trigger = get_trigger(frame, positions, target_item)
+            trigger = get_trigger(frame, positions, duration_cats, target_item)
             eyetracker.tracker.send_message(f"trig{trigger}")
 
         # Check for pressed 'q'
@@ -107,6 +109,7 @@ def single_trial(
     response = get_response(
         target_duration,
         positions,
+        duration_cats,
         target_item,
         settings,
         testing,
@@ -120,13 +123,13 @@ def single_trial(
         show_text("!", settings["window"], (0, -settings["deg2pix"](0.3)))
 
     if not testing:
-        trigger = get_trigger("feedback_onset", positions, target_item)
+        trigger = get_trigger("feedback_onset", positions, duration_cats, target_item)
         eyetracker.tracker.send_message(f"trig{trigger}")
 
     settings["window"].flip()
-    sleep(0.35)
+    sleep(0.25)
 
     return {
-        "condition_code": get_trigger("stimulus_onset_1", positions, target_item),
+        "condition_code": get_trigger("stimulus_onset_1", positions, duration_cats, target_item),
         **response,
     }
